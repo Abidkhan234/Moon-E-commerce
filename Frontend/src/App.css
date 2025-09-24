@@ -2,6 +2,27 @@
 
 @import "tailwindcss";
 
+/* For Webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #826F66;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #826f66ab;
+}
+
 * {
   font-family: "Inter", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #826f66 transparent;
 }

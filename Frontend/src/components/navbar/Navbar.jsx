@@ -1,4 +1,4 @@
-import Logo from "../../../public/assets/Logo/logo.svg";
+import Logo from "../../../public/assets/Logo/navLogo.svg";
 
 import searchIcon from "../../../public/assets/Icons/Search.svg";
 import avtarIcon from "../../../public/assets/Icons/Avatar.svg";
@@ -8,17 +8,17 @@ import menuIcon from "../../../public/assets/Icons/Menu.svg";
 
 import Sidebar from "../Sidebar/Sidebar.jsx";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { navLinks } from "../../constant/data.js";
 import { NavLink } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import CartBox from "../Sidebar/CartBox.jsx";
+import usePreventScroll from "../hooks/usePreventScroll.jsx";
 
 const Navbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
-
-  const totalItems = 1;
+  const divRef = useRef(null);
 
   return (
     <>
@@ -73,28 +73,16 @@ const Navbar = () => {
               />
             </NavLink>
           </div>
-          <button className="cursor-pointer relative" onClick={() => setShowCart(true)}>
-            <img
-              src={cartIcon}
-              className="size-[23px] hover:scale-115 transition-transform duration-300 "
-              alt="cart-icon"
-            />
-            <span className="absolute -bottom-3 -right-3 font-medium text-sm bg-[#C69B7B] size-[20px] text-center content-center rounded-full text-white">{totalItems}</span>
-          </button>
+          <>
+            <NavCartIcon setShowCart={setShowCart} />
+          </>
         </div>
       </nav>
 
       <AnimatePresence>
         {showSidebar && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.4 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute bg-black z-40 h-full w-full"
-              onClick={() => setShowSidebar(false)}
-            ></motion.div>
+            <Overlay active={showSidebar} setActive={setShowSidebar} />
             <motion.div
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: "0%", opacity: 1 }}
@@ -110,14 +98,7 @@ const Navbar = () => {
       <AnimatePresence>
         {showCart && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.4 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute bg-black z-40 h-full w-full"
-              onClick={() => setShowCart(false)}
-            ></motion.div>
+            <Overlay ref={divRef} active={showCart} setActive={setShowCart} />
             <motion.div
               initial={{
                 opacity: 0,
@@ -131,7 +112,7 @@ const Navbar = () => {
               transition={{
                 duration: 0.3,
               }}
-              className="absolute top-0 right-0 w-full h-full max-h-[500px] max-w-[500px] bg-[#E5E5E5] z-50 rounded-bl-lg"
+              className="fixed top-0 right-0 w-full sm:max-h-[500px] max-h-[600px] max-w-[500px] bg-[#e9dede] z-50 sm:rounded-bl-lg"
             >
               <CartBox setShowCart={setShowCart} />
             </motion.div>
@@ -139,6 +120,45 @@ const Navbar = () => {
         )}
       </AnimatePresence>
     </>
+  );
+};
+
+const Overlay = ({ ref = null, active, setActive }) => {
+  // For Preventing Scrolling
+  if (ref) {
+    usePreventScroll(ref, active);
+  }
+  // For Preventing Scrolling
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.4 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
+      className="fixed bg-black z-40 h-[100vh] w-full"
+      onClick={() => setActive(!active)}
+      ref={ref}
+    ></motion.div>
+  );
+};
+
+const NavCartIcon = ({ setShowCart }) => {
+  const totalItems = 1;
+  return (
+    <button
+      className="cursor-pointer relative"
+      onClick={() => setShowCart(true)}
+    >
+      <img
+        src={cartIcon}
+        className="size-[23px] hover:scale-115 transition-transform duration-300 "
+        alt="cart-icon"
+      />
+      <span className="absolute -bottom-3 -right-3 font-medium text-sm bg-[#C69B7B] size-[20px] text-center content-center rounded-full text-white">
+        {totalItems}
+      </span>
+    </button>
   );
 };
 

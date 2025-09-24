@@ -15,7 +15,7 @@ const HeroSection = ({
         alt="hero-image"
       />
 
-      <div className="md:absolute md:top-0 md:left-20 bottom-0 h-full md:max-h-full w-full md:max-w-[420px] bg-[#826F66] flex items-center md:py-0 py-5">
+      <div className="md:absolute md:top-0 lg:left-20 md:left-10 h-full md:max-h-full w-full lg:max-w-[420px] md:max-w-[360px] bg-[#826F66] flex items-center md:py-0 py-5">
         <div className="h-full w-full flex justify-center items-center">
           <div className="flex flex-col gap-4 items-center text-center">
             <div className="">

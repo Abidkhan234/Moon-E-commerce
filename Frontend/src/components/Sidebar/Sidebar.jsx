@@ -1,4 +1,4 @@
-import Logo from "../../../public/assets/Logo/logo.svg";
+import Logo from "../../../public/assets/Logo/navLogo.svg";
 import closeIcon from "../../../public/assets/Icons/Close.svg";
 
 import { navLinks } from "../../constant/data.js";
@@ -7,7 +7,7 @@ import { NavLink } from "react-router";
 const Sidebar = ({ setShowSidebar }) => {
   return (
     <div className="flex flex-col gap-5 h-full">
-      <div className="flex justify-between items-center border-b border-[#98979c]">
+      <div className="flex justify-between items-center border-b border-[#98979c] pb-1">
         <div className="shrink-0">
           <img src={Logo} className="w-[120px] h-[45px]" alt="" />
         </div>
