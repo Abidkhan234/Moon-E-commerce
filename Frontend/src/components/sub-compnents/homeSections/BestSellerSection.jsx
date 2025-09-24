@@ -1,11 +1,12 @@
-import React from 'react'
+import { cardData } from "../../../constant/data";
+import SectionLayout from "../../layouts/SectionLayout";
 
 const BestSellerSection = () => {
   return (
-    <div>
-    
-    </div>
-  )
-}
+    <section className="">
+      <SectionLayout data={cardData} title="Best sellers" />
+    </section>
+  );
+};
 
-export default BestSellerSection
+export default BestSellerSection;

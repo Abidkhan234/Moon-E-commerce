@@ -2,7 +2,7 @@ import { quickFilterSecCardData } from "../../../constant/data";
 
 const QuickFilterSection = () => {
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 xl:gap-7 gap-5">
+    <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 xl:gap-7 gap-5">
       {quickFilterSecCardData.map((v, i) => (
         <div className="flex flex-col text-center gap-4 items-center" key={i}>
           <div className="w-full sm:h-[350px] h-[300px]">

@@ -8,7 +8,7 @@ const HeroSection = ({
   children,
 }) => {
   return (
-    <div className="min-h-[80vh] w-full relative overflow-hidden flex flex-col h-full">
+    <section className="min-h-[80vh] w-full relative overflow-hidden flex flex-col h-full">
       <img
         src={bgImage}
         className="md:absolute w-full h-full object-cover grow"
@@ -32,7 +32,7 @@ const HeroSection = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

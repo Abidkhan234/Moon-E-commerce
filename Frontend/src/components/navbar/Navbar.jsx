@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 py-3 flex justify-between items-center w-full bg-[#FFFFFF] lg:px-20 md:px-10 px-6 border-b border-[#CAC9CF] z-30">
+      <nav className="fixed top-0 left-0 right-0 py-3 flex justify-between items-center w-full bg-[#FFFFFF] lg:px-20 md:px-10 px-6 z-30">
         <div className="md:hidden block shrink-0">
           <button
             className="cursor-pointer"

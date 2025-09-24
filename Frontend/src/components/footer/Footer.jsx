@@ -1,10 +1,11 @@
 import footerLogo from "../../../public/assets/Logo/footerLogo.svg";
 import { FaArrowRight } from "react-icons/fa";
 import { footerLinks } from "../../constant/data";
+import Button from "../buttons/Button";
 
 const Footer = () => {
   return (
-    <footer className="lg:px-20 md:px-10 px-6 bg-[#3A3845] pb-5">
+    <footer className="lg:px-20 md:px-10 px-6 bg-[#3A3845] pb-5 mt-10">
       <div className="grid grid-cols-12 gap-4 border-b border-[#E5E5E5]">
         <div className="md:col-span-4 col-span-12 md:border-r border-b md:border-b-0 border-[#CAC9CF] md:py-10 py-7">
           <div className="flex flex-col gap-4">
@@ -20,12 +21,13 @@ const Footer = () => {
                 Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam
                 mauris sed ma
               </p>
-              <button className="py-2 px-10 border uppercase border-[#E5E5E5] text-[#E5E5E5] flex items-center gap-1 cursor-pointer w-fit">
-                <span>Get Started </span>
-                <span className="text-base">
-                  <FaArrowRight />
-                </span>
-              </button>
+              <div className="w-[200px]">
+                <Button
+                  icon={<FaArrowRight />}
+                  btnText="get started"
+                  color="E5E5E5"
+                />
+              </div>
             </div>
           </div>
         </div>

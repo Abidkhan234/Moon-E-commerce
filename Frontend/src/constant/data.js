@@ -69,7 +69,65 @@ const quickFilterSecCardData = [
 
 // Best-Seller-Section
 
+import cardImage1 from '../../public/assets/homePage/Best-Sellers-Section/alura-cream-tall-vase.png'
+import cardImage2 from '../../public/assets/homePage/Best-Sellers-Section/e327c66bdd7299132da8f4531c54cda7.png'
+import cardImage3 from '../../public/assets/homePage/Best-Sellers-Section/holden-vase.png'
+import cardImage4 from '../../public/assets/homePage/Best-Sellers-Section/marin-blue-salad-plate.png'
+import cardImage5 from '../../public/assets/homePage/Best-Sellers-Section/mercer-grey-bowl.png'
+import cardImage6 from '../../public/assets/homePage/Best-Sellers-Section/mercer-low-bowl.png'
+import cardImage7 from '../../public/assets/homePage/Best-Sellers-Section/OpheliaVase17inWhiteAVSSS22.png'
+import cardImage8 from '../../public/assets/homePage/Best-Sellers-Section/WarrickVase20inWhiteAVSSS22.png'
 
+const cardData = [
+    {
+        title: "Small Ecru Ceramic Compote",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage1,
+        price: 49.00
+    },
+    {
+        title: "Warrick White Vase 14",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage2,
+        price: 49.00
+    },
+    {
+        title: "Porcelain Dinner Plate",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage3,
+        price: 49.00
+    },
+    {
+        title: "Warrick White Vase 20",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage4,
+        price: 49.00
+    },
+    {
+        title: "Rounded Dual Handled Vase",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage5,
+        price: 49.00
+    },
+    {
+        title: "Marin White Dinner Plate",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage6,
+        price: 49.00
+    },
+    {
+        title: "Tall Cream Ceramic Vase",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage7,
+        price: 49.00
+    },
+    {
+        title: "Luana Bowl",
+        description: "Lorem ipsum dolor sit amet conse bolli tetur adipiscing elit tortor eu.",
+        image: cardImage8,
+        price: 49.00
+    },
+]
 
 // Best-Seller-Section
 
@@ -105,4 +163,4 @@ const footerLinks = [
 // For Footer
 
 
-export { navLinks, footerLinks, links, quickFilterSecCardData }
+export { navLinks, footerLinks, links, quickFilterSecCardData, cardData }
