@@ -1,6 +1,7 @@
 import React from "react";
 
 const Button = ({
+  btnType = "text",
   btnText = "",
   showBorder = true,
   color = "",
@@ -9,6 +10,7 @@ const Button = ({
 }) => {
   return (
     <button
+      type={btnType}
       className={`uppercase w-full sm:text-lg text-sm font-medium text-[#${color}] ${
         showBorder ? "border " : "border-none"
       } border-[#${color}] py-2 cursor-pointer ${

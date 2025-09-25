@@ -1,7 +1,7 @@
 import { BsFillCartXFill } from "react-icons/bs";
 import { NavLink } from "react-router";
 import cartItemImage from "../../../public/assets/homePage/Best-Sellers-Section/alura-cream-tall-vase.png";
-import CartBoxCard from "../cards/CartBoxCard";
+import CartBoxCard from "../ui/cards/CartBoxCard";
 import { links } from "../../constant/data";
 
 const CartBox = ({ setShowCart }) => {
@@ -20,7 +20,7 @@ const CartBox = ({ setShowCart }) => {
         </button>
       </div>
       <div className="h-full max-h-[300px] flex flex-col gap-4 w-full overflow-y-auto">
-        {[1, 2,3].map((_, i) => (
+        {[1, 2, 3].map((_, i) => (
           <div key={i}>
             <CartBoxCard
               cartItemImage={cartItemImage}
@@ -40,6 +40,7 @@ const CartBox = ({ setShowCart }) => {
         <div className="w-full flex gap-3 items-center">
           {links.map((v, i) => (
             <NavLink
+              onClick={() => setShowCart(false)}
               key={i}
               to={v.path}
               className={`font-medium text-lg border rounded-full py-2 basis-[50%] text-center`}

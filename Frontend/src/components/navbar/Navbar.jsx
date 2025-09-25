@@ -1,6 +1,5 @@
 import Logo from "../../../public/assets/Logo/navLogo.svg";
 
-import searchIcon from "../../../public/assets/Icons/Search.svg";
 import avtarIcon from "../../../public/assets/Icons/Avatar.svg";
 import heartIcon from "../../../public/assets/Icons/Heart.svg";
 import cartIcon from "../../../public/assets/Icons/Shopping cart.svg";
@@ -22,7 +21,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 py-3 flex justify-between items-center w-full bg-[#FFFFFF] lg:px-20 md:px-10 px-6 z-30">
+      <nav className="fixed top-0 left-0 right-0 py-3 flex justify-between items-center w-full bg-[#FFFFFF] lg:px-20 md:px-10 px-6 z-30 border-b border-[#9d9ca1]">
         <div className="md:hidden block shrink-0">
           <button
             className="cursor-pointer"
@@ -51,14 +50,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center sm:gap-7 shrink-0">
           <div className="md:flex hidden items-center gap-7">
-            <button className="cursor-pointer">
-              <img
-                src={searchIcon}
-                className="size-[23px] hover:scale-115 transition-transform duration-300"
-                alt="search-icon"
-              />
-            </button>
-            <NavLink to={`/login`}>
+            <NavLink to={`/auth`}>
               <img
                 src={avtarIcon}
                 className="size-[23px] hover:scale-115 transition-transform duration-300"

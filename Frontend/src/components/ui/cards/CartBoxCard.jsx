@@ -3,7 +3,7 @@ import CounterBtn from "../buttons/CounterBtn";
 
 const CartBoxCard = ({ cartItemImage, productName, productPrice }) => {
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-3 items-center border-b border-[#000000] pb-2">
       <div className="flex items-center min-[350px]:gap-3 gap-2 grow">
         <div className="overflow-hidden rounded-xl min-[340px]:size-[110px] size-[100px]">
           <img

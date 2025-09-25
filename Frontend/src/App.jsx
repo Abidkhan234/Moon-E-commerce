@@ -7,13 +7,15 @@ import BlogPage from "./components/pages/BlogPage";
 import CartPage from "./components/pages/CartPage";
 import CheckoutPage from "./components/pages/CheckoutPage";
 import WishListPage from "./components/pages/WishListPage";
-import ContactPage from "./components/pages/ContactPage";
+import AuthPage from "./components/pages/auth/authPage";
 
 import { Routes, Route } from "react-router";
+import ScrollToTop from "./components/ui/scrollToTop/ScrollToTop";
 
 const App = () => {
   return (
     <div className="min-h-[100vh] w-full bg-gray-100">
+      <ScrollToTop />
       <Routes>
         <Route element={<PageLayout />}>
           <Route index element={<HomePage />} />
@@ -23,7 +25,7 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/wish-list" element={<WishListPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Route>
       </Routes>
     </div>

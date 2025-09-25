@@ -13,10 +13,6 @@ const navLinks = [
         text: "Blog",
         path: "/blog"
     },
-    {
-        text: "Contact",
-        path: "/contact"
-    },
 ]
 
 // For Navabr & Sidebar
@@ -131,6 +127,140 @@ const cardData = [
 
 // Best-Seller-Section
 
+// For Blog Post Data
+
+import postCardImage1 from "../../public/assets/blogPage/image 156.png";
+import postCardImage2 from "../../public/assets/blogPage/image 154.png";
+import postCardImage3 from "../../public/assets/blogPage/image 160.png";
+import postCardImage4 from "../../public/assets/blogPage/image 161.png";
+import postCardImage5 from "../../public/assets/blogPage/image 162.png";
+import postCardImage6 from "../../public/assets/blogPage/image 168.png";
+import postCardImage7 from "../../public/assets/blogPage/image 170.png";
+import personIcon from "../../public/assets/Icons/person.svg";
+
+const tags = [
+    {
+        tag: "Ceramic",
+    },
+    {
+        tag: "Kitchen",
+    },
+    {
+        tag: "Gifts sets",
+    },
+    {
+        tag: "Flower vase",
+    },
+    {
+        tag: "Plate",
+    },
+    {
+        tag: "Kitchen",
+    },
+];
+
+const categories = [
+    {
+        text: "Dinnerware",
+        totalPosts: 3,
+    },
+    {
+        text: "Ceramic",
+        totalPosts: 3,
+    },
+    {
+        text: "Furniture",
+        totalPosts: 3,
+    },
+    {
+        text: "Decor Art",
+        totalPosts: 3,
+    },
+];
+
+const postData = [
+    {
+        postImage: postCardImage1,
+        title: "How Can I Use Ceramic When I Decorate?",
+        description: "Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit nullam neque ultrices.",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+    {
+        postImage: postCardImage2,
+        title: "The secrets to a Living Room set?",
+        description: "Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+    {
+        postImage: postCardImage4,
+        title: "How to Style a Beautiful House",
+        description: "Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam .Vulputate aliquam nisi. dolor sit amet consectetur adipiscing eli mattis sit phasellus",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+    {
+        postImage: postCardImage5,
+        title: "The secrets to a Living Room set?",
+        description: "Maecenas sem eros, rutrum vitae risus eget, vulputate aliquam nisi.",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+    {
+        postImage: postCardImage6,
+        title: "Chocolate Clementine Cake Recipe",
+        description: "Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam .",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+    {
+        postImage: postCardImage7,
+        title: "Holiday Food Traditions With Moon Family",
+        description: "Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit nullam neque ultrices.",
+        postOwnerAvatar: personIcon,
+        postTime: "Jan 24, 2024",
+        postOwnerName: "Brian Clark",
+    },
+]
+
+// For Blog Post Data
+
+// For Cart Products
+
+import cartItem1 from '../../public/assets/cartPage/c4335f5f330dbeec64ad59bf6a0b4fd4.png'
+import cartItem2 from '../../public/assets/cartPage/julo-blue-salad-plate.png'
+import cartItem3 from '../../public/assets/cartPage/valo-matte-white-vase.png'
+
+
+const cartItems = [{
+    id: 3,
+    image: cartItem3,
+    name: "Porcelain Dinner Plate",
+    price: 70,
+},
+{
+    id: 1,
+    image: cartItem1,
+    name: "Porcelain Dinner Plate (27cm)",
+    price: 59,
+},
+{
+    id: 2,
+    image: cartItem2,
+    name: "Ophelia Matte Natural  Vase",
+    price: 168,
+},
+
+];
+
+// For Cart Products
+
 // For Footer
 
 const footerLinks = [
@@ -163,4 +293,4 @@ const footerLinks = [
 // For Footer
 
 
-export { navLinks, footerLinks, links, quickFilterSecCardData, cardData }
+export { navLinks, footerLinks, links, quickFilterSecCardData, cardData, tags, categories, postData, cartItems }

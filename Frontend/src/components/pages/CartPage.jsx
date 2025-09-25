@@ -1,9 +1,16 @@
-import React from 'react'
+import CartSection from "../sub-compnents/cartSections/CartSection";
 
 const CartPage = () => {
   return (
-    <div>CartPage</div>
-  )
-}
+    <main className="flex flex-col gap-8 lg:px-20 md:px-10 px-6 py-4">
+      <>
+        <span>Bread Crumbs</span>
+      </>
+      <>
+        <CartSection />
+      </>
+    </main>
+  );
+};
 
-export default CartPage
+export default CartPage;

@@ -2,7 +2,9 @@ import heroImage from "../../../../public/assets/blogPage/image 160.png";
 
 const HeroSection = () => {
   return (
-    <section className="grid md:grid-cols-2 grid-cols-1 md:h-[60vh] h-full w-full">
+    <section
+      className="grid md:grid-cols-2 grid-cols-1 md:h-[60vh] h-full w-full"
+    >
       <div className="">
         <img src={heroImage} className="w-full h-full object-cover" alt="" />
       </div>

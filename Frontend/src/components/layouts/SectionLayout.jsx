@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../cards/ProductCard";
+import ProductCard from "../ui/cards/ProductCard";
 
 const SectionLayout = ({
   data = [],
@@ -17,7 +17,7 @@ const SectionLayout = ({
       {isBlogSection ? (
         <>{blogSecComponent}</>
       ) : (
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-7">
           {data.map((v, i) => (
             <div className="" key={i}>
               <ProductCard
