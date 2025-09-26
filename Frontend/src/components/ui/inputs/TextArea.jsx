@@ -1,22 +1,23 @@
 import { useField } from "formik";
 import { AnimatePresence, motion } from "motion/react";
-import { IoPerson } from "react-icons/io5";
 
-const Input = ({ placeholder, name, ...props }) => {
+const TextArea = ({ placeholder = "", name = "", labelText }) => {
   const [field, meta] = useField(name);
   return (
-    <div className="flex flex-col gap-1 relative w-full">
-      <div className="flex justify-between items-center w-full bg-[#cac9cf94] rounded-md text-black py-2 px-2">
-        <input
+    <div className="flex flex-col gap-1 relative w-full h-[150px]">
+      <div
+        className={`w-full rounded-none bg-transparent flex flex-col gap-2 text-black h-full`}
+      >
+        <label htmlFor={name} className="font-semibold capitalize text-[#3A3845]">
+          {labelText} *
+        </label>
+        <textarea
           {...field}
-          {...props}
+          autoComplete="off"
           type="text"
-          className="grow outline-none md:pe-2 pe-1 font-medium min-w-0"
+          className={`grow outline-none md:pe-2 pe-1 font-medium min-w-0 placeholder:text-[#807F86] border border-[#3A3845] py-2.5 px-2 h-full resize-none rounded-sm`}
           placeholder={placeholder}
-        />
-        <span>
-          <IoPerson size={22} />
-        </span>
+        ></textarea>
       </div>
       <AnimatePresence>
         {meta.error && meta.touched && (
@@ -34,4 +35,4 @@ const Input = ({ placeholder, name, ...props }) => {
   );
 };
 
-export default Input;
+export default TextArea;

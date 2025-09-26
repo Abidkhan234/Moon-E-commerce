@@ -1,5 +1,5 @@
 import { useState } from "react";
-import searchIcon from "../../../../../public/assets/Icons/Search.svg";
+import searchIcon from "/assets/Icons/Search.svg";
 
 const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");

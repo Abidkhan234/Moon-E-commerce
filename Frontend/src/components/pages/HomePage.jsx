@@ -1,5 +1,5 @@
-import bgImage from "../../../public/assets/homePage/Hero-Section/flat-lay-composition-different-sized-plates 1.png";
-import heroLogo from "../../../public/assets/Icons/hero-section-logo.svg";
+import bgImage from "/assets/homePage/Hero-Section/flat-lay-composition-different-sized-plates 1.png";
+import heroLogo from "/assets/Icons/hero-section-logo.svg";
 import HeroSection from "../repeatedSections/HeroSection";
 import BestSellerSection from "../sub-compnents/homeSections/BestSellerSection";
 import BlogSection from "../sub-compnents/homeSections/BlogSection";

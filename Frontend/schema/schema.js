@@ -29,4 +29,30 @@ const signUpSchema = Yup.object({
         .matches(/^(?!\s*$).+/, "User name cannot be empty or spaces only"),
 });
 
-export { loginSchema, signUpSchema }
+const checkoutSchema = Yup.object({
+    firstName: Yup.string()
+        .required("First name is required")
+        .min(3, "Minimum three characters"),
+    lastName: Yup.string()
+        .required("Last name is required")
+        .min(3, "Minimum three characters"),
+    company: Yup.string()
+        .default(""),
+    countryRegion: Yup.string()
+        .required("Country & region is required"),
+    streetAddress: Yup.string()
+        .required("Address is required"),
+    townCity: Yup.string()
+        .required("Town & City is required"),
+    state: Yup.string()
+        .required("State is required"),
+    zipCode: Yup.string()
+        .default(""),
+    phone: Yup.string()
+        .required("Phone number is required")
+        .matches(/^03[0-9]{9}$/, "Phone number must be a valid Pakistani number"),
+    email: Yup.string().email("Invalid email format").required("Email is required"),
+    orderNotes: Yup.string().default(""),
+})
+
+export { loginSchema, signUpSchema, checkoutSchema }

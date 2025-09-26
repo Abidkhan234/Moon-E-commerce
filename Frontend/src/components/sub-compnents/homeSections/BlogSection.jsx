@@ -1,5 +1,5 @@
 import SectionLayout from "../../layouts/SectionLayout";
-import blogImage from "../../../../public/assets/homePage/Blog-Section/278d3df6aaa3db5e513b9e8e024dbf7e 1.png";
+import blogImage from "/assets/homePage/Blog-Section/278d3df6aaa3db5e513b9e8e024dbf7e 1.png";
 import { NavLink } from "react-router";
 
 const BlogSection = () => {

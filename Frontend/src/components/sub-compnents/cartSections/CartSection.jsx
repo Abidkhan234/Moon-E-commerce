@@ -3,6 +3,7 @@ import CounterBtn from "../../ui/buttons/CounterBtn";
 import { cartItems } from "../../../constant/data";
 import trashIcon from "../../../../public/assets/Icons/Trash.svg";
 import Button from "../../ui/buttons/Button";
+import { NavLink } from "react-router";
 
 const CartSection = () => {
   const totalItems = 3;
@@ -20,13 +21,23 @@ const CartSection = () => {
           <h3 className="font-bold text-2xl">Cart Totals</h3>
           <div className="flex justify-between items-center">
             <span className="text-lg font-medium">Subtotal</span>
-            <span className="min-[375px]:text-lg text-base font-semibold">$465.00</span>
+            <span className="min-[375px]:text-lg text-base font-semibold">
+              $465.00
+            </span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-lg font-medium">Cart Total</span>
-            <span className="min-[375px]:text-lg text-base font-semibold">$465.00</span>
+            <span className="min-[375px]:text-lg text-base font-semibold">
+              $465.00
+            </span>
           </div>
-          <Button btnText="Proceed to checkout" btnType="text" color="FFFFFF" />
+          <NavLink to={`/checkout`}>
+            <Button
+              btnText="Proceed to checkout"
+              btnType="text"
+              color="FFFFFF"
+            />
+          </NavLink>
         </div>
       </div>
     </section>

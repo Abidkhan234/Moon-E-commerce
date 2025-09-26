@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 
-const CounterBtn = () => {
+const CounterBtn = ({ isWidthFull = false }) => {
   const [counter, setCounter] = useState(1);
   const handleCounter = (countType) => {
     if (countType == "plus") {
@@ -20,7 +20,11 @@ const CounterBtn = () => {
     }
   };
   return (
-    <div className="flex items-center gap-4 border border-[#3A3845] py-1.5 w-max">
+    <div
+      className={`flex items-center gap-4 border border-[#3A3845] py-1.5 ${
+        isWidthFull ? "w-full justify-between h-full" : "w-max"
+      }`}
+    >
       <button
         disabled={counter == 1 ? true : false}
         className="cursor-pointer size-[25px] flex justify-center items-center disabled:opacity-50 disabled:pointer-events-none"

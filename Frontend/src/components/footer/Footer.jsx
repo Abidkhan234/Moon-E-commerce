@@ -1,4 +1,4 @@
-import footerLogo from "../../../public/assets/Logo/footerLogo.svg";
+import footerLogo from "/assets/Logo/footerLogo.svg";
 import { FaArrowRight } from "react-icons/fa";
 import { footerLinks } from "../../constant/data";
 import Button from "../ui/buttons/Button";

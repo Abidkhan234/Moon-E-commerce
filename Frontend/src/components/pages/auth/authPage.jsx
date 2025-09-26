@@ -1,8 +1,8 @@
 import { Form, Formik } from "formik";
 import heroLogo from "../../../../public/assets/Icons/hero-section-logo.svg";
-import EmailInput from "../../ui/forms/inputs/EmailInput";
-import PasswordInput from "../../ui/forms/inputs/PasswordInput";
-import Input from "../../ui/forms/inputs/Input";
+import EmailInput from "../../ui/inputs/EmailInput";
+import PasswordInput from "../../ui/inputs/PasswordInput";
+import Input from "../../ui/inputs/Input";
 import { loginSchema, signUpSchema } from "../../../../schema/schema";
 import { useState } from "react";
 
@@ -94,18 +94,10 @@ const LoginForm = () => {
           </h3>
           <div className="flex flex-col gap-7">
             <>
-              <EmailInput
-                autoComplete="off"
-                placeholder={"Email Address"}
-                name={"email"}
-              />
+              <EmailInput placeholder={"Email Address"} name={"email"} />
             </>
             <>
-              <PasswordInput
-                placeholder={"Enter password"}
-                name={"password"}
-                autoComplete="off"
-              />
+              <PasswordInput placeholder={"Enter password"} name={"password"} />
             </>
             <div className="w-full">
               <button
@@ -145,31 +137,18 @@ const SignUpForm = () => {
           </h3>
           <div className="flex flex-col w-full gap-6">
             <div className="w-full">
-              <Input
-                placeholder={"Enter Name"}
-                name={"userName"}
-                autoComplete={"off"}
-              />
+              <Input placeholder={"Enter Name"} name={"userName"} />
             </div>
             <div className="w-full">
-              <EmailInput
-                autoComplete="off"
-                placeholder={"Email Address"}
-                name={"email"}
-              />
+              <EmailInput placeholder={"Email Address"} name={"email"} />
             </div>
             <div className="w-full">
-              <PasswordInput
-                placeholder={"Enter password"}
-                name={"password"}
-                autoComplete="off"
-              />
+              <PasswordInput placeholder={"Enter password"} name={"password"} />
             </div>
             <div className="w-full">
               <PasswordInput
                 placeholder={"Confirm password"}
                 name={"confirmPassword"}
-                autoComplete="off"
               />
             </div>
 
@@ -256,7 +235,9 @@ const FormOtherHalf2 = ({
               {title}
             </h1>
 
-            <h2 className="min-[375px]:text-xl text-lg font-bold text-[#FFFDFB]">{subTitle}</h2>
+            <h2 className="min-[375px]:text-xl text-lg font-bold text-[#FFFDFB]">
+              {subTitle}
+            </h2>
 
             <button
               type="button"

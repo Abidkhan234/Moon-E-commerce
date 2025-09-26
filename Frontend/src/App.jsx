@@ -14,13 +14,13 @@ import ScrollToTop from "./components/ui/scrollToTop/ScrollToTop";
 
 const App = () => {
   return (
-    <div className="min-h-[100vh] w-full bg-gray-100">
+    <div className="min-h-[100vh] w-full bg-[#E8E8E8]">
       <ScrollToTop />
       <Routes>
         <Route element={<PageLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/product:id" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/blog" element={<BlogPage />} />

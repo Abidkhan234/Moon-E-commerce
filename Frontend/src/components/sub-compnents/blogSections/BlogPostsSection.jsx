@@ -1,6 +1,6 @@
 import { categories, postData, tags } from "../../../constant/data";
 import BlogPostCard from "../../ui/cards/BlogPostCard";
-import SearchInput from "../../ui/forms/inputs/SearchInput";
+import SearchInput from "../../ui/inputs/SearchInput";
 
 const BlogPostsSection = () => {
   return (

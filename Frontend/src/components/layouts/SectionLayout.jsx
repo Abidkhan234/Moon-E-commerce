@@ -25,7 +25,7 @@ const SectionLayout = ({
                 title={v.title}
                 description={v.description}
                 price={v.price}
-                index={i}
+                id={i}
               />
             </div>
           ))}

@@ -1,9 +1,9 @@
-import Logo from "../../../public/assets/Logo/navLogo.svg";
+import Logo from "/assets/Logo/navLogo.svg";
 
-import avtarIcon from "../../../public/assets/Icons/Avatar.svg";
-import heartIcon from "../../../public/assets/Icons/Heart.svg";
-import cartIcon from "../../../public/assets/Icons/Shopping cart.svg";
-import menuIcon from "../../../public/assets/Icons/Menu.svg";
+import avtarIcon from "/assets/Icons/Avatar.svg";
+import heartIcon from "/assets/Icons/Heart.svg";
+import cartIcon from "/assets/Icons/Shopping cart.svg";
+import menuIcon from "/assets/Icons/Menu.svg";
 
 import Sidebar from "../Sidebar/Sidebar.jsx";
 
@@ -12,7 +12,7 @@ import { navLinks } from "../../constant/data.js";
 import { NavLink } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import CartBox from "../Sidebar/CartBox.jsx";
-import usePreventScroll from "../hooks/usePreventScroll.jsx";
+import Overlay from "../ui/overlay/Overlay.jsx";
 
 const Navbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -112,26 +112,6 @@ const Navbar = () => {
         )}
       </AnimatePresence>
     </>
-  );
-};
-
-const Overlay = ({ ref = null, active, setActive }) => {
-  // For Preventing Scrolling
-  if (ref) {
-    usePreventScroll(ref, active);
-  }
-  // For Preventing Scrolling
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.4 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25, ease: "easeInOut" }}
-      className="fixed bg-black z-40 h-[100vh] w-full"
-      onClick={() => setActive(!active)}
-      ref={ref}
-    ></motion.div>
   );
 };
 
