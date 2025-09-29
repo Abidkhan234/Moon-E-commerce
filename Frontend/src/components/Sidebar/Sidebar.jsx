@@ -1,12 +1,14 @@
 import Logo from "../../../public/assets/Logo/navLogo.svg";
 import closeIcon from "../../../public/assets/Icons/Close.svg";
-import avtarIcon from "../../../public/assets/Icons/Avatar.svg";
 import heartIcon from "../../../public/assets/Icons/Heart.svg";
 
 import { navLinks } from "../../constant/data.js";
 import { NavLink } from "react-router";
+import useUIContext from "../../../context/UIContext.jsx";
 
-const Sidebar = ({ setShowSidebar }) => {
+const Sidebar = ({ avatarComponenet }) => {
+  const { setShowSidebar } = useUIContext();
+
   return (
     <div className="flex flex-col gap-5 ">
       <div className="flex justify-between items-center border-b border-[#98979c] pb-1">
@@ -32,10 +34,8 @@ const Sidebar = ({ setShowSidebar }) => {
           </NavLink>
         ))}
       </div>
-      <div className="flex items-center justify-between border-b border-[#98979c] pb-1">
-        <NavLink to={`/auth`} onClick={() => setShowSidebar(false)}>
-          <img src={avtarIcon} className="size-[30px]" alt="avatar-icon" />
-        </NavLink>
+      <div className="flex flex-row-reverse items-center justify-between border-b border-[#98979c] pb-1">
+        <>{avatarComponenet}</>
         <NavLink to={`/wish-list`} onClick={() => setShowSidebar(false)}>
           <img src={heartIcon} className="size-[30px]" alt="avatar-icon" />
         </NavLink>

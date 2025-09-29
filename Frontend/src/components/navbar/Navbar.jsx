@@ -7,16 +7,18 @@ import menuIcon from "/assets/Icons/Menu.svg";
 
 import Sidebar from "../Sidebar/Sidebar.jsx";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { navLinks } from "../../constant/data.js";
 import { NavLink } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import CartBox from "../Sidebar/CartBox.jsx";
 import Overlay from "../ui/overlay/Overlay.jsx";
+import useAuthContext from "../../../context/AuthContext.jsx";
+import AvatarDropDown from "../ui/dropDown/AvatarDropDown.jsx";
+import useUIContext from "../../../context/UIContext.jsx";
 
 const Navbar = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [showCart, setShowCart] = useState(false);
+  const { setShowCart, setShowSidebar, showSidebar, showCart } = useUIContext();
   const divRef = useRef(null);
 
   return (
@@ -50,13 +52,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center sm:gap-7 shrink-0">
           <div className="md:flex hidden items-center gap-7">
-            <NavLink to={`/auth`}>
-              <img
-                src={avtarIcon}
-                className="size-[23px] hover:scale-115 transition-transform duration-300"
-                alt="avatar-icon"
-              />
-            </NavLink>
+            {<AvatarIcon bgColor={"#e5dada"} />}
             <NavLink to={`/wish-list`}>
               <img
                 src={heartIcon}
@@ -80,9 +76,17 @@ const Navbar = () => {
               animate={{ x: "0%", opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed h-full top-[50%] translate-y-[-50%] left-0 bg-[#E5E5E5] w-full min-[425px]:max-w-[300px] py-4 px-2 z-50"
+              className="fixed h-full top-[50%] translate-y-[-50%] left-0 bg-[#f5eded] w-full min-[425px]:max-w-[300px] py-4 px-2 z-50"
             >
-              <Sidebar setShowSidebar={setShowSidebar} />
+              <Sidebar
+                avatarComponenet={
+                  <AvatarIcon
+                    bgColor={`rgb(209 198 198)`}
+                    isSidebarIcon={true}
+                    setShowSidebar={setShowSidebar}
+                  />
+                }
+              />
             </motion.div>
           </>
         )}
@@ -112,6 +116,33 @@ const Navbar = () => {
         )}
       </AnimatePresence>
     </>
+  );
+};
+
+const AvatarIcon = ({ bgColor, isSidebarIcon = false, setShowSidebar }) => {
+  const { userData } = useAuthContext();
+
+  return userData?.email ? (
+    <AvatarDropDown userData={userData}>
+      <button
+        style={{ backgroundColor: bgColor }}
+        className={`relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full cursor-pointer font-bold text-[#3A3845] text-lg`}
+      >
+        {userData?.userName.charAt(0).toUpperCase()}
+      </button>
+    </AvatarDropDown>
+  ) : (
+    <NavLink to={`/auth`} onClick={() => setShowSidebar(false)}>
+      <img
+        src={avtarIcon}
+        className={`${
+          isSidebarIcon
+            ? "size-[30px]"
+            : "size-[23px] hover:scale-115 transition-transform duration-300"
+        } `}
+        alt="avatar-icon"
+      />
+    </NavLink>
   );
 };
 

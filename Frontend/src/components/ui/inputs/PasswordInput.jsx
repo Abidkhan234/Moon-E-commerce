@@ -13,6 +13,7 @@ const PasswordInput = ({ placeholder, name, ...props }) => {
         <input
           {...field}
           {...props}
+          autoComplete="off"
           type={showPass ? "text" : "password"}
           className="grow outline-none md:pe-2 pe-1 font-medium min-w-0"
           placeholder={placeholder}

@@ -5,6 +5,12 @@ import PasswordInput from "../../ui/inputs/PasswordInput";
 import Input from "../../ui/inputs/Input";
 import { loginSchema, signUpSchema } from "../../../../schema/schema";
 import { useState } from "react";
+import Loader from "../../ui/loader/Loader";
+import useAuth from "../../../hooks/useAuth";
+import { setItem } from "../../../utils/localStorageHelper";
+import { useNavigate } from "react-router";
+import { decodeToken } from "../../../utils/tokenDecoded";
+import useAuthContext from "../../../../context/AuthContext";
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -51,7 +57,10 @@ const AuthPage = () => {
                   : "md:translate-x-[0%] md:translate-y-0 translate-y-[0%]"
               } top-0 md:right-0 md:w-[55%] w-full md:h-full h-[65%] transition-transform duration-500`}
             >
-              <SignUpForm />
+              <SignUpForm
+                setIsLoginForm={setIsLoginForm}
+                isLoginForm={isLoginForm}
+              />
             </div>
 
             <div
@@ -77,10 +86,40 @@ const AuthPage = () => {
 };
 
 const LoginForm = () => {
-  const submitHandler = (values, { resetForm }) => {
-    console.log(values);
-    resetForm();
+  const { setUserData } = useAuthContext();
+  const loginMutation = useAuth();
+
+  const { isPending } = loginMutation;
+
+  const navigate = useNavigate();
+
+  const submitHandler = async (values, { resetForm }) => {
+    loginMutation.mutate(
+      {
+        endpoint: "/auth/login",
+        method: "post",
+        data: values,
+      },
+      {
+        onSuccess: (res) => {
+          setItem("acceeToken", res.accessToken);
+          setItem("refreshToken", res.refreshToken);
+
+          const { email, userName } = decodeToken(res.accessToken);
+
+          setUserData({ email, userName });
+
+          setItem("userData", { email, userName });
+
+          setTimeout(() => {
+            navigate("/");
+          }, 600);
+          resetForm();
+        },
+      }
+    );
   };
+
   return (
     <div className="h-full w-full flex justify-center items-center px-2">
       <Formik
@@ -101,10 +140,12 @@ const LoginForm = () => {
             </>
             <div className="w-full">
               <button
+                disabled={isPending ? true : false}
                 type="submit"
-                className="font-semibold text-lg cursor-pointer py-1.5 bg-[#826F66] text-[#FFFDFB] rounded-md w-full"
+                className="font-semibold text-lg cursor-pointer py-1.5 bg-[#826F66] text-[#FFFDFB] rounded-md w-full disabled:opacity-80 disabled:pointer-events-none flex justify-center items-center disabled:gap-5"
               >
-                Login
+                {isPending && <Loader />}
+                Sign up
               </button>
             </div>
           </div>
@@ -114,11 +155,29 @@ const LoginForm = () => {
   );
 };
 
-const SignUpForm = () => {
-  const submitHandler = (values, { resetForm }) => {
-    console.log(values);
-    resetForm();
+const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
+  const registerMutation = useAuth();
+
+  const { isPending } = registerMutation;
+
+  const submitHandler = async (values, { resetForm }) => {
+    const { userName, email, password } = values;
+
+    registerMutation.mutate(
+      {
+        endpoint: "/auth/register",
+        method: "post",
+        data: { userName, email, password },
+      },
+      {
+        onSuccess: () => {
+          setIsLoginForm(!isLoginForm);
+          resetForm();
+        },
+      }
+    );
   };
+
   return (
     <div className="h-full w-full flex justify-center items-center px-2 z-10">
       <Formik
@@ -154,10 +213,12 @@ const SignUpForm = () => {
 
             <div className="w-full">
               <button
+                disabled={isPending ? true : false}
                 type="submit"
-                className="font-semibold text-lg cursor-pointer py-1.5 bg-[#826F66] text-[#FFFDFB] rounded-md w-full"
+                className="font-semibold text-lg cursor-pointer py-1.5 bg-[#826F66] text-[#FFFDFB] rounded-md w-full disabled:opacity-80 disabled:pointer-events-none flex justify-center items-center disabled:gap-5"
               >
-                Sign Up
+                {isPending && <Loader />}
+                Sign up
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import usePreventScroll from "../../hooks/usePreventScroll";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 const Overlay = ({ ref = null, active, setActive }) => {
   // For Preventing Scrolling

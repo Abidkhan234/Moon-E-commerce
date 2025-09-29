@@ -11,6 +11,7 @@ const EmailInput = ({ placeholder, name, ...props }) => {
           {...field}
           {...props}
           type="email"
+          autoComplete="off"
           className="grow outline-none md:pe-2 pe-1 font-medium min-w-0"
           placeholder={placeholder}
         />
