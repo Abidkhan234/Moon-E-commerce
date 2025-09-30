@@ -11,6 +11,7 @@ import { setItem } from "../../../utils/localStorageHelper";
 import { useNavigate } from "react-router";
 import { decodeToken } from "../../../utils/tokenDecoded";
 import useAuthContext from "../../../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -111,10 +112,19 @@ const LoginForm = () => {
 
           setItem("userData", { email, userName });
 
+          toast.success(res?.message || "Success");
+
           setTimeout(() => {
             navigate("/");
           }, 600);
           resetForm();
+        },
+        onError: (err) => {
+          toast.error(
+            err?.response?.data?.message ||
+              err?.message ||
+              "Something went wrong"
+          );
         },
       }
     );
@@ -170,9 +180,17 @@ const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
         data: { userName, email, password },
       },
       {
-        onSuccess: () => {
+        onSuccess: (res) => {
           setIsLoginForm(!isLoginForm);
+          toast.success(res?.message || "Success");
           resetForm();
+        },
+        onError: (err) => {
+          toast.error(
+            err?.response?.data?.message ||
+              err?.message ||
+              "Something went wrong"
+          );
         },
       }
     );

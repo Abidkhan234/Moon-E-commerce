@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 
-import toast from "react-hot-toast";
 import Axios from "../config/client";
 
 const useAuth = () => {
@@ -13,15 +12,7 @@ const useAuth = () => {
       });
       return response.data;
     },
-    onSuccess: (res) => {
-      toast.success(res?.message || "Success");
-    },
-    onError: (err) => {
-      toast.error(
-        err?.response?.data?.message || err?.message || "Something went wrong"
-      );
-    },
-  });
+});
 };
 
 export default useAuth;

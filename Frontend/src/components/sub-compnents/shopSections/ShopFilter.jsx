@@ -1,19 +1,34 @@
 import { Form, Formik } from "formik";
-import { categories, priceRange, tags } from "../../../constant/data";
 import Checkbox from "../../ui/inputs/Checkbox";
 import { IoClose } from "react-icons/io5";
+import useUIContext from "../../../../context/UIContext";
+import { useState } from "react";
 
-const ShopFilter = ({ setActive }) => {
-  const submitHandler = (values) => {
-    console.log(values);
+const ShopFilter = ({ setActive, data, isLoading }) => {
+  const { totalItems, setFilterData } = useUIContext();
+
+  const category = [...new Set(data.map((v) => v.category))];
+
+  const tags = [...new Set(data.flatMap((v) => v.tags))];
+
+  const submitHandler = (values, { resetForm }) => {
+    const query = {};
+
+    if (values.category?.length) {
+      query.category = values.category.join(",");
+    }
+
+    if (values.tags?.length) {
+      query.tags = values.tags.join(",");
+    }
+
+    setFilterData(query);
+
+    resetForm();
   };
 
-  const totalItems = 120;
   return (
-    <Formik
-      initialValues={{ category: [], priceRange: [], tag: [] }}
-      onSubmit={submitHandler}
-    >
+    <Formik initialValues={{ category: [], tag: [] }} onSubmit={submitHandler}>
       <Form
         className={`flex flex-col gap-5 text-[#374151] ${
           setActive && "py-4 px-5"
@@ -36,21 +51,14 @@ const ShopFilter = ({ setActive }) => {
         <>
           <Filtering
             filterTitle={"Category"}
-            filterArr={categories}
+            filterArr={isLoading ? [] : category}
             name={"category"}
           />
         </>
         <>
           <Filtering
-            filterTitle={"Price Range"}
-            filterArr={priceRange}
-            name={"priceRange"}
-          />
-        </>
-        <>
-          <Filtering
             filterTitle={"tags"}
-            filterArr={tags.slice(0, -1)}
+            filterArr={isLoading ? [] : tags}
             name={"tag"}
           />
         </>
@@ -66,23 +74,43 @@ const ShopFilter = ({ setActive }) => {
 };
 
 const Filtering = ({ filterArr, filterTitle, name }) => {
+  const [expand, setExpand] = useState(5);
+  const isLong = filterArr.length > 5;
+
   return (
     <div className="flex flex-col gap-3 border-b-2 border-[#807F86] pb-2">
-      <h4 className="font-semibold lg:text-lg md:text-base text-lg capitalize">{filterTitle}</h4>
+      <h4 className="font-semibold lg:text-lg md:text-base text-lg capitalize">
+        {filterTitle}
+      </h4>
       <ul className="flex flex-col gap-3">
-        {filterArr.map((v, i) => (
-          <li className="flex items-center gap-2" key={i}>
-            {/* checkbox */}
-            <>
-              <Checkbox
-                labelText={v?.tag || v.text}
-                name={name}
-                value={v?.tag || v.text}
-              />
-            </>
-            {/* checkbox */}
+        {isLong && filterTitle == "tags"
+          ? filterArr.slice(0, expand).map((v, i) => (
+              <li className="flex items-center gap-2" key={i}>
+                <>
+                  <Checkbox labelText={v} name={name} value={v} />
+                </>
+              </li>
+            ))
+          : filterArr.map((v, i) => (
+              <li className="flex items-center gap-2" key={i}>
+                <>
+                  <Checkbox labelText={v} name={name} value={v} />
+                </>
+              </li>
+            ))}
+        {isLong && filterTitle == "tags" && (
+          <li className="flex justify-end items-center">
+            <button
+              type="button"
+              className="font-semibold text-base cursor-pointer"
+              onClick={() =>
+                setExpand(() => (expand == 5 ? filterArr.length : 5))
+              }
+            >
+              {expand == 5 ? "Show More" : "Show Less"}
+            </button>
           </li>
-        ))}
+        )}
       </ul>
     </div>
   );

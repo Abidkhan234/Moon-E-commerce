@@ -3,7 +3,14 @@ import Button from "../buttons/Button";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
-const ProductCard = ({ cardImage, title, price, description, id }) => {
+const ProductCard = ({
+  cardImage,
+  title,
+  price,
+  discountPrice,
+  description,
+  id,
+}) => {
   const navigate = useNavigate();
 
   const handleClick = (productId) => {
@@ -24,12 +31,11 @@ const ProductCard = ({ cardImage, title, price, description, id }) => {
       </div>
       <div className="flex flex-col gap-2">
         <div className="">
-          <h2 className="lg:text-base text-sm font-semibold uppercase text-[#3A3845]">
-            {title}
-          </h2>
+          <Title title={title} />
         </div>
-        <div className="">
-          <span className="text-sm font-semibold">${price}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold">${discountPrice}</span>
+          <span className="text-sm font-semibold text-[#9CA3AF] line-through">${price}</span>
         </div>
         <>
           <Description description={description} />
@@ -44,12 +50,27 @@ const ProductCard = ({ cardImage, title, price, description, id }) => {
   );
 };
 
+const Title = ({ title }) => {
+  const [expanded, setExpanded] = useState(false);
+  const words = title.split(" ").filter((v) => v);
+  const isLong = words.length > 3;
+
+  const displayedText = expanded ? title : words.slice(0, 3).join(" ");
+
+  return (
+    <h2 className="lg:text-base text-sm font-semibold uppercase text-[#3A3845]">
+      {displayedText}
+      {isLong && <span>...</span>}
+    </h2>
+  );
+};
+
 const Description = ({ description }) => {
   const [expanded, setExpanded] = useState(false);
   const words = description.split(" ").filter((v) => v);
-  const isLong = words.length > 14;
+  const isLong = words.length > 10;
 
-  const displayedText = expanded ? description : words.slice(0, 16).join(" ");
+  const displayedText = expanded ? description : words.slice(0, 10).join(" ");
 
   return (
     <p className="text-[#595667] lg:text-sm text-[13px]">

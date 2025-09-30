@@ -1,11 +1,13 @@
 import React from "react";
 
-const Loader = () => {
+const Loader = ({ isBigger = false }) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`size-5.5 text-white animate-spin fill-[#3A3845]`}
+        className={`${
+          isBigger ? "size-15" : "size-5.5"
+        } text-white animate-spin fill-[#3A3845]`}
         viewBox="0 0 100 101"
         fill="none"
       >

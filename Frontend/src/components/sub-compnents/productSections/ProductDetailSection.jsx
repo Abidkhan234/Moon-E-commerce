@@ -19,15 +19,15 @@ const ProductDetailSection = ({
         </div>
 
         <div className="flex flex-col justify-center  gap-6">
-          <h3 className="text-xl font-semibold uppercase">{title}</h3>
-          <p className="font-medium text-sm">{description}</p>
+          <h3 className="text-3xl font-semibold uppercase">{title}</h3>
+          <p className="font-medium text-base">{description}</p>
           <div className="flex items-center gap-1 text-base font-medium">
             <span>Stock:</span>
             <span className="capitalize text-[#C69B7B]">{stock}</span>
           </div>
           <h1 className="text-2xl font-bold">
-            ${price}{" "}
-            <span className="text-[#9CA3AF] ms-3">${discountPrice}</span>
+            ${discountPrice}
+            <span className="text-[#9CA3AF] ms-3">${price}</span>
           </h1>
           <div className="grid grid-cols-12 gap-3 gap-y-5">
             <div className="md:col-span-3 col-span-4">

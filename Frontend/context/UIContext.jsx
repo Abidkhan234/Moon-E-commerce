@@ -5,6 +5,8 @@ const UIContext = createContext();
 export const UIProvider = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const [filterData, setFilterData] = useState({});
+  const [totalItems, setTotalItems] = useState(0);
 
   return (
     <UIContext.Provider
@@ -13,6 +15,10 @@ export const UIProvider = ({ children }) => {
         setShowSidebar,
         showCart,
         setShowCart,
+        filterData,
+        setFilterData,
+        totalItems,
+        setTotalItems,
       }}
     >
       {children}

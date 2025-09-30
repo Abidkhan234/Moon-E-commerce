@@ -5,8 +5,10 @@ import BestSellerSection from "../sub-compnents/homeSections/BestSellerSection";
 import BlogSection from "../sub-compnents/homeSections/BlogSection";
 import NewArrivalSection from "../sub-compnents/homeSections/NewArrivalSection";
 import QuickFilterSection from "../sub-compnents/homeSections/QuickFilterSection";
+import {usePost} from "../../hooks/usePost";
 
 const HomePage = () => {
+  const { isLoading, data } = usePost({});
   return (
     <main className="flex flex-col gap-12">
       <>
@@ -26,10 +28,16 @@ const HomePage = () => {
           <QuickFilterSection />
         </>
         <>
-          <BestSellerSection />
+          <BestSellerSection
+            data={isLoading ? [] : data.products}
+            isLoading={isLoading}
+          />
         </>
         <>
-          <NewArrivalSection />
+          <NewArrivalSection
+            data={isLoading ? [] : data.products}
+            isLoading={isLoading}
+          />
         </>
       </div>
       <>

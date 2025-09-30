@@ -1,13 +1,14 @@
-import React from "react";
 import SectionLayout from "../../layouts/SectionLayout";
-import { cardData } from "../../../constant/data";
 
-const NewArrivalSection = () => {
+const NewArrivalSection = ({ data, isLoading }) => {
+  const newArrivalSectionData = data?.filter((v) => v.rating < 2.9);
+
   return (
     <section className="">
       <SectionLayout
-        data={cardData.slice(0, 4)}
+        data={isLoading ? [] : newArrivalSectionData}
         title="Discover new  arrivals"
+        isLoading={isLoading}
       />
     </section>
   );

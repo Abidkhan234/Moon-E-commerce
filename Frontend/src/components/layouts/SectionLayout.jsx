@@ -1,11 +1,13 @@
 import React from "react";
 import ProductCard from "../ui/cards/ProductCard";
+import Loader from "../ui/loader/Loader";
 
 const SectionLayout = ({
   data = [],
   title = "",
   isBlogSection = false,
   blogSecComponent,
+  isLoading,
 }) => {
   return (
     <div className="flex flex-col gap-7 h-full w-full">
@@ -14,6 +16,11 @@ const SectionLayout = ({
           {title}
         </h1>
       </div>
+      {isLoading && (
+        <div className="flex justify-center items-center">
+          <Loader isBigger={true} />
+        </div>
+      )}
       {isBlogSection ? (
         <>{blogSecComponent}</>
       ) : (
@@ -21,11 +28,14 @@ const SectionLayout = ({
           {data.map((v, i) => (
             <div className="" key={i}>
               <ProductCard
-                cardImage={v.image}
+                cardImage={v.images}
                 title={v.title}
                 description={v.description}
                 price={v.price}
-                id={i}
+                discountPrice={Math.round(
+                  v.price - (v.price * v.discountPercentage) / 100
+                )}
+                id={v.id}
               />
             </div>
           ))}

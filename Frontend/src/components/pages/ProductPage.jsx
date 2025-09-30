@@ -1,27 +1,39 @@
 import { useParams } from "react-router";
-import { cardData } from "../../constant/data";
 import ProductDetailSection from "../sub-compnents/productSections/ProductDetailSection";
+import { usePost } from "../../hooks/usePost";
+import Loader from "../ui/loader/Loader";
 
 const ProductPage = () => {
   const { id } = useParams();
 
-  const singleItemData = cardData.filter((v) => v.id == id);
+  const { isLoading, data } = usePost({ id });
+
+  const price = data?.price;
+  const discountPercentage = data?.discountPercentage;
 
   return (
     <main className="flex flex-col gap-8 lg:px-20 md:px-10 px-6 py-4">
       <>
         <span>Bread Crumbs</span>
       </>
-      <>
-        <ProductDetailSection
-          title={singleItemData[0].title}
-          description={singleItemData[0].description}
-          image={singleItemData[0].image}
-          price={singleItemData[0].price}
-          discountPrice={50}
-          stock={"in stock"}
-        />
-      </>
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <Loader isBigger={true} />
+        </div>
+      ) : (
+        <>
+          <ProductDetailSection
+            title={data.title}
+            description={data.description}
+            image={data.images}
+            discountPrice={Math.round(
+              price - (price * discountPercentage) / 100
+            )}
+            price={price}
+            stock={data.availabilityStatus}
+          />
+        </>
+      )}
     </main>
   );
 };
