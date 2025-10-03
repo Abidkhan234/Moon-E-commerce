@@ -7,19 +7,16 @@ import menuIcon from "/assets/Icons/Menu.svg";
 
 import Sidebar from "../Sidebar/Sidebar.jsx";
 
-import { useRef } from "react";
 import { navLinks } from "../../constant/data.js";
 import { NavLink } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
-import CartBox from "../Sidebar/CartBox.jsx";
 import Overlay from "../ui/overlay/Overlay.jsx";
 import useAuthContext from "../../../context/AuthContext.jsx";
 import AvatarDropDown from "../ui/dropDown/AvatarDropDown.jsx";
 import useUIContext from "../../../context/UIContext.jsx";
 
 const Navbar = () => {
-  const { setShowCart, setShowSidebar, showSidebar, showCart } = useUIContext();
-  const divRef = useRef(null);
+  const { setShowSidebar, showSidebar } = useUIContext();
 
   return (
     <>
@@ -62,7 +59,7 @@ const Navbar = () => {
             </NavLink>
           </div>
           <>
-            <NavCartIcon setShowCart={setShowCart} />
+            <NavCartIcon />
           </>
         </div>
       </nav>
@@ -87,30 +84,6 @@ const Navbar = () => {
                   />
                 }
               />
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {showCart && (
-          <>
-            <Overlay ref={divRef} active={showCart} setActive={setShowCart} />
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 50,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{
-                duration: 0.3,
-              }}
-              className="fixed top-0 right-0 w-full sm:max-h-[500px] max-h-[600px] max-w-[500px] bg-[#e9dede] z-50 sm:rounded-bl-lg"
-            >
-              <CartBox setShowCart={setShowCart} />
             </motion.div>
           </>
         )}
@@ -146,21 +119,21 @@ const AvatarIcon = ({ bgColor, isSidebarIcon = false, setShowSidebar }) => {
   );
 };
 
-const NavCartIcon = ({ setShowCart }) => {
-  const totalItems = 1;
+const NavCartIcon = () => {
+  const { totalItems } = useUIContext();
+
   return (
-    <button
-      className="cursor-pointer relative"
-      onClick={() => setShowCart(true)}
-    >
-      <img
-        src={cartIcon}
-        className="size-[23px] hover:scale-115 transition-transform duration-300 "
-        alt="cart-icon"
-      />
-      <span className="absolute -bottom-3 -right-3 font-medium text-sm bg-[#C69B7B] size-[20px] text-center content-center rounded-full text-white">
-        {totalItems}
-      </span>
+    <button className="cursor-pointer relative">
+      <NavLink to={"/cart"}>
+        <img
+          src={cartIcon}
+          className="size-[23px] hover:scale-115 transition-transform duration-300 "
+          alt="cart-icon"
+        />
+        <span className="absolute -bottom-3 -right-3 font-medium text-sm bg-[#C69B7B] size-[20px] text-center content-center rounded-full text-white">
+          {totalItems}
+        </span>
+      </NavLink>
     </button>
   );
 };

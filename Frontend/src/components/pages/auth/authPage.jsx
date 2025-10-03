@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import heroLogo from "../../../../public/assets/Icons/hero-section-logo.svg";
 import EmailInput from "../../ui/inputs/EmailInput";
 import PasswordInput from "../../ui/inputs/PasswordInput";
@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import { decodeToken } from "../../../utils/tokenDecoded";
 import useAuthContext from "../../../../context/AuthContext";
 import toast from "react-hot-toast";
+import Checkbox from "../../ui/inputs/Checkbox";
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -103,7 +104,7 @@ const LoginForm = () => {
       },
       {
         onSuccess: (res) => {
-          setItem("acceeToken", res.accessToken);
+          setItem("accessToken", res.accessToken);
           setItem("refreshToken", res.refreshToken);
 
           const { email, userName } = decodeToken(res.accessToken);
@@ -171,13 +172,15 @@ const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
   const { isPending } = registerMutation;
 
   const submitHandler = async (values, { resetForm }) => {
-    const { userName, email, password } = values;
+    const { userName, email, password, isAdmin } = values;
+
+    const role = isAdmin ? "admin" : "user";
 
     registerMutation.mutate(
       {
         endpoint: "/auth/register",
         method: "post",
-        data: { userName, email, password },
+        data: { userName, email, password, role },
       },
       {
         onSuccess: (res) => {
@@ -204,6 +207,7 @@ const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
           email: "",
           password: "",
           confirmPassword: "",
+          isAdmin: false,
         }}
         validationSchema={signUpSchema}
         onSubmit={submitHandler}
@@ -227,6 +231,17 @@ const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
                 placeholder={"Confirm password"}
                 name={"confirmPassword"}
               />
+            </div>
+            <div className="w-fit flex items-center">
+              <label className="container flex items-center gap-2 lg:text-base md:text-sm font-medium cursor-pointer">
+                <Field
+                  className="peer cursor-pointer hidden after:opacity-100"
+                  type="checkbox"
+                  name={"isAdmin"}
+                />
+                <span className="inline-block w-4 h-4 border-2 relative rounded-sm cursor-pointer after:content-[''] after:absolute after:top-2/4 after:left-2/4 after:-translate-x-1/2 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-[#333] after:rounded-[2px] after:opacity-0 peer-checked:after:opacity-100"></span>
+                Admin
+              </label>
             </div>
 
             <div className="w-full">

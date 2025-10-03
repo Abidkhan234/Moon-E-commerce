@@ -12,7 +12,7 @@ const useAuth = () => {
       });
       return response.data;
     },
-});
+  });
 };
 
 export default useAuth;

@@ -272,20 +272,16 @@ const cartItems = [{
 
 const sortOptions = [
     {
-        text: "Name",
-        value: "alphabatical"
+        text: "High-To-Low",
+        value: "high"
     },
     {
-        text: "Newest First",
-        value: "newest"
+        text: "Low-To-high",
+        value: "low"
     },
     {
-        text: "Most Popular",
-        value: "popular"
-    },
-    {
-        text: "Least Popular",
-        value: "leastPopular"
+        text: "Latest",
+        value: "latest"
     },
 ]
 

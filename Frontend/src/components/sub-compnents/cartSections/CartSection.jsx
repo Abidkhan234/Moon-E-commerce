@@ -1,20 +1,27 @@
 import { IoClose } from "react-icons/io5";
 import CounterBtn from "../../ui/buttons/CounterBtn";
-import { cartItems } from "../../../constant/data";
 import trashIcon from "../../../../public/assets/Icons/Trash.svg";
 import Button from "../../ui/buttons/Button";
 import { NavLink } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { getOrders } from "../../../api/api";
+import useUIContext from "../../../../context/UIContext";
 
 const CartSection = () => {
-  const totalItems = 3;
+  const { cartItems } = useUIContext();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["cartProducts"],
+    queryFn: getOrders,
+  });
 
   return (
     <section className="flex flex-col gap-5">
       <h1 className="font-bold text-3xl text-[#3A3845]">
-        Cart ({totalItems} items)
+        Cart ({cartItems.length} items)
       </h1>
       <>
-        <CartTable items={cartItems} />
+        <CartTable items={isLoading ? [] : data} />
       </>
       <div className="flex items-center justify-end">
         <div className="flex flex-col gap-5 bg-[#3A3845] sm:p-10 p-7 text-[#FFFFFF] w-full md:max-w-[600px] rounded-md">
@@ -64,8 +71,8 @@ const CartTable = ({ items }) => {
           </thead>
 
           <tbody>
-            {items.map((it) => (
-              <tr key={it.id} className="border-b">
+            {items?.map((it) => (
+              <tr key={it._id} className="border-b">
                 {/* delete */}
                 <td className="px-3 py-4 align-middle">
                   <button className="text-2xl cursor-pointer text-[#E54335]">
@@ -77,8 +84,8 @@ const CartTable = ({ items }) => {
                 <td className="px-3 py-4 align-middle">
                   <div className="flex items-center gap-3">
                     <img
-                      src={it.image}
-                      alt={it.name}
+                      src={it.image.url}
+                      alt={it.title}
                       className="size-[130px] object-cover"
                     />
                   </div>
@@ -87,13 +94,15 @@ const CartTable = ({ items }) => {
                 {/* product */}
                 <td className="px-3 py-4 align-middle">
                   <div className="text-lg font-semibold text-gray-900">
-                    {it.name}
+                    {it.title}
                   </div>
                 </td>
 
                 {/* price */}
                 <td className="px-3 py-4 align-middle text-center">
-                  <div className="text-base font-medium">${it.price}</div>
+                  <div className="text-base font-medium">
+                    ${it.discountedPrice}
+                  </div>
                 </td>
 
                 {/* quantity */}
@@ -117,21 +126,23 @@ const CartTable = ({ items }) => {
 
       {/* Mobile stacked cards */}
       <div className="md:hidden flex flex-col gap-4">
-        {items.map((v, i) => (
+        {items?.map((v, i) => (
           <div
             className="flex flex-col gap-3 border-b border-[#000000] pb-3"
-            key={v.id}
+            key={v._id}
           >
             <button className="text-3xl cursor-pointer text-[#E54335] w-max">
               <IoClose />
             </button>
             <div className="flex items-center gap-1.5">
-              <img src={v.image} className="size-[110px]" alt="" />
-              <h5 className="font-semibold min-[425px]:text-xl ">{v.name}</h5>
+              <img src={v.image.url} className="size-[110px]" alt="" />
+              <h5 className="font-semibold min-[425px]:text-xl ">{v.title}</h5>
             </div>
             <div className="flex justify-between items-center">
               <span className="uppercase text-base text-[#3A3845]">price:</span>
-              <span className="font-semibold text-base">${v.price}</span>
+              <span className="font-semibold text-base">
+                ${v.discountedPrice}
+              </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="uppercase text-base text-[#3A3845]">

@@ -1,34 +1,28 @@
 import { Form, Formik } from "formik";
 import Checkbox from "../../ui/inputs/Checkbox";
 import { IoClose } from "react-icons/io5";
-import useUIContext from "../../../../context/UIContext";
 import { useState } from "react";
+import useUIContext from "../../../../context/UIContext";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchCategories } from "../../../api/api";
+import Loader from "../../ui/loader/Loader";
 
-const ShopFilter = ({ setActive, data, isLoading }) => {
+const ShopFilter = ({ setActive }) => {
   const { totalItems, setFilterData } = useUIContext();
+  const queryClient = useQueryClient();
 
-  const category = [...new Set(data.map((v) => v.category))];
+  const { data, isLoading } = useQuery({
+    queryKey: ["getCategories"],
+    queryFn: () => fetchCategories("brand"),
+  });
 
-  const tags = [...new Set(data.flatMap((v) => v.tags))];
-
-  const submitHandler = (values, { resetForm }) => {
-    const query = {};
-
-    if (values.category?.length) {
-      query.category = values.category.join(",");
-    }
-
-    if (values.tags?.length) {
-      query.tags = values.tags.join(",");
-    }
-
-    setFilterData(query);
-
-    resetForm();
+  const submitHandler = (values) => {
+    setFilterData({
+      brand: values.brand,
+    });
   };
-
   return (
-    <Formik initialValues={{ category: [], tag: [] }} onSubmit={submitHandler}>
+    <Formik initialValues={{ brand: [], tag: [] }} onSubmit={submitHandler}>
       <Form
         className={`flex flex-col gap-5 text-[#374151] ${
           setActive && "py-4 px-5"
@@ -50,23 +44,20 @@ const ShopFilter = ({ setActive, data, isLoading }) => {
         </div>
         <>
           <Filtering
-            filterTitle={"Category"}
-            filterArr={isLoading ? [] : category}
-            name={"category"}
-          />
-        </>
-        <>
-          <Filtering
-            filterTitle={"tags"}
-            filterArr={isLoading ? [] : tags}
-            name={"tag"}
+            filterTitle={"Brands"}
+            filterArr={isLoading ? [] : data}
+            name={"brand"}
           />
         </>
         <button
           type="submit"
-          className="bg-[#3A3845] text-[#FFFFFF] py-2 uppercase cursor-pointer tracking-wide rounded-sm w-full text-nowrap"
+          disabled={isLoading}
+          onClick={() => {
+            queryClient.invalidateQueries({ queryKey: ["shopProducts"] });
+          }}
+          className="bg-[#3A3845] text-[#FFFFFF] py-2 uppercase cursor-pointer tracking-wide rounded-sm w-full text-nowrap disabled:opacity-80 disabled:pointer-events-none flex justify-center items-center disabled:gap-4"
         >
-          Apply
+          {isLoading && <Loader />} Apply
         </button>
       </Form>
     </Formik>
@@ -87,11 +78,11 @@ const Filtering = ({ filterArr, filterTitle, name }) => {
           ? filterArr.slice(0, expand).map((v, i) => (
               <li className="flex items-center gap-2" key={i}>
                 <>
-                  <Checkbox labelText={v} name={name} value={v} />
+                  <Checkbox labelText={v.tag} name={name} value={v.tag} />
                 </>
               </li>
             ))
-          : filterArr.map((v, i) => (
+          : filterArr?.map((v, i) => (
               <li className="flex items-center gap-2" key={i}>
                 <>
                   <Checkbox labelText={v} name={name} value={v} />

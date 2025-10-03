@@ -5,7 +5,7 @@ const Checkbox = ({ labelText, name, value }) => {
 
   return (
     <div className="flex justify-center items-center">
-      <label className="container flex items-center gap-3 lg:text-base md:text-sm font-medium cursor-pointer">
+      <label className="container flex items-center gap-3 lg:text-base md:text-sm font-medium cursor-pointer capitalize">
         <input
           {...field}
           className="peer cursor-pointer hidden after:opacity-100"

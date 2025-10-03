@@ -1,7 +1,12 @@
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Button from "../buttons/Button";
-import { useNavigate } from "react-router";
+import { data, useNavigate } from "react-router";
 import { useState } from "react";
+import { getItem, setItem } from "../../../utils/localStorageHelper";
+import useUIContext from "../../../../context/UIContext";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { addOrder } from "../../../api/api";
 
 const ProductCard = ({
   cardImage,
@@ -11,11 +16,41 @@ const ProductCard = ({
   description,
   id,
 }) => {
+  const { cartItems, setCartItems, setTotalItems } = useUIContext();
   const navigate = useNavigate();
 
+  const addToCartMutation = useMutation({
+    mutationFn: (productId) => addOrder(productId),
+  });
+
   const handleClick = (productId) => {
-    console.log(productId);
+    const exitingCart = getItem("cartItems") || [];
+
+    const index = exitingCart.findIndex((v) => v.productId == productId);
+
+    if (index == -1) {
+      exitingCart.push({ productId });
+
+      addToCartMutation.mutate(productId, {
+        onSuccess: (res) => {
+          toast.success(res.data.message);
+
+          setItem("cartItems", exitingCart);
+          setTotalItems(exitingCart.length);
+
+          setCartItems(exitingCart);
+          return;
+        },
+        onError: (res) => {
+          if (res.res.data.message.includes("No access token provided")) {
+            navigate("/auth");
+            return;
+          }
+        },
+      });
+    }
   };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="sm:h-[400px] h-[306px] group relative">
@@ -35,7 +70,7 @@ const ProductCard = ({
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm font-semibold">${discountPrice}</span>
-          <span className="text-sm font-semibold text-[#9CA3AF] line-through">${price}</span>
+          <span className="text-sm font-semibold text-[#9CA3AF]">${price}</span>
         </div>
         <>
           <Description description={description} />
@@ -53,9 +88,9 @@ const ProductCard = ({
 const Title = ({ title }) => {
   const [expanded, setExpanded] = useState(false);
   const words = title.split(" ").filter((v) => v);
-  const isLong = words.length > 3;
+  const isLong = words.length > 4;
 
-  const displayedText = expanded ? title : words.slice(0, 3).join(" ");
+  const displayedText = expanded ? title : words.slice(0, 4).join(" ");
 
   return (
     <h2 className="lg:text-base text-sm font-semibold uppercase text-[#3A3845]">
@@ -68,12 +103,12 @@ const Title = ({ title }) => {
 const Description = ({ description }) => {
   const [expanded, setExpanded] = useState(false);
   const words = description.split(" ").filter((v) => v);
-  const isLong = words.length > 10;
+  const isLong = words.length > 5;
 
-  const displayedText = expanded ? description : words.slice(0, 10).join(" ");
+  const displayedText = expanded ? description : words.slice(0, 5).join(" ");
 
   return (
-    <p className="text-[#595667] lg:text-sm text-[13px]">
+    <p className="text-[#595667] lg:text-[13px] text-sm">
       {displayedText}
       {isLong && <span>...</span>}
     </p>

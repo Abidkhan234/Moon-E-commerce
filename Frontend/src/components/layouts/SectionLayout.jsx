@@ -28,14 +28,12 @@ const SectionLayout = ({
           {data.map((v, i) => (
             <div className="" key={i}>
               <ProductCard
-                cardImage={v.images}
+                cardImage={v.image.url}
                 title={v.title}
                 description={v.description}
                 price={v.price}
-                discountPrice={Math.round(
-                  v.price - (v.price * v.discountPercentage) / 100
-                )}
-                id={v.id}
+                discountPrice={v.discountedPrice}
+                id={v._id}
               />
             </div>
           ))}

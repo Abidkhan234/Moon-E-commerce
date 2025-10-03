@@ -4,6 +4,7 @@ import { clearStorage } from "../../../utils/localStorageHelper";
 import useAuth from "../../../hooks/useAuth";
 import useAuthContext from "../../../../context/AuthContext";
 import useUIContext from "../../../../context/UIContext";
+import toast from "react-hot-toast";
 
 const AvatarDropDown = ({ children, userData }) => {
   const [open, setOpen] = useState(false);
@@ -70,7 +71,8 @@ const LogoutBtn = ({ setOpen }) => {
         method: "post",
       },
       {
-        onSuccess: () => {
+        onSuccess: (res) => {
+          toast.success(res.message);
           setOpen(false);
           setShowSidebar(false);
           setShowCart(false);

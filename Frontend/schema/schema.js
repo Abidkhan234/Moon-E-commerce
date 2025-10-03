@@ -27,6 +27,7 @@ const signUpSchema = Yup.object({
         .min(3, "Minimum three characters")
         .max(16, "Maximum 16 characters")
         .matches(/^(?!\s*$).+/, "User name cannot be empty or spaces only"),
+    isAdmin: Yup.boolean()
 });
 
 const checkoutSchema = Yup.object({

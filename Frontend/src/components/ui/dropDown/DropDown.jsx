@@ -2,11 +2,15 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { sortOptions } from "../../../constant/data";
+import useUIContext from "../../../../context/UIContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DropDown = () => {
-  const [showDropDown, setShowDropDown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("Name");
+  const { setSortBy } = useUIContext();
+  const queryClient = useQueryClient();
 
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("High-To-Low");
   return (
     <div className="flex items-center min-[375px]:gap-2 text-[#3A3845] relative">
       <span className="text-base">Sort by:</span>
@@ -29,6 +33,8 @@ const DropDown = () => {
             setActive={setShowDropDown}
             setSelectedItem={setSelectedItem}
             itemsArr={sortOptions}
+            setSortBy={setSortBy}
+            queryClient={queryClient}
           />
         )}
       </AnimatePresence>
@@ -36,7 +42,13 @@ const DropDown = () => {
   );
 };
 
-const DropDownMenu = ({ setActive, setSelectedItem, itemsArr }) => {
+const DropDownMenu = ({
+  setActive,
+  setSelectedItem,
+  itemsArr,
+  setSortBy,
+  queryClient,
+}) => {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -51,7 +63,9 @@ const DropDownMenu = ({ setActive, setSelectedItem, itemsArr }) => {
             className="font-medium border-b border-[] last:border-none cursor-pointer text-start"
             onClick={() => {
               setSelectedItem(v.text);
+              setSortBy(v.value);
               setActive(false);
+              queryClient.invalidateQueries({ queryKey: ["shopProducts"] });
             }}
             key={i}
           >

@@ -1,15 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
+import { cardData } from "../../../constant/data";
 import SectionLayout from "../../layouts/SectionLayout";
+import { fetchNewProducts } from "../../../api/api";
 
-const NewArrivalSection = ({ data, isLoading }) => {
-  const newArrivalSectionData = data?.filter((v) => v.rating < 2.9);
+const NewArrivalSection = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["newProducts"],
+    queryFn: fetchNewProducts,
+  });
 
   return (
     <section className="">
-      <SectionLayout
-        data={isLoading ? [] : newArrivalSectionData}
-        title="Discover new  arrivals"
-        isLoading={isLoading}
-      />
+      <SectionLayout data={data} isLoading={isLoading} title="Discover new  arrivals" />
     </section>
   );
 };

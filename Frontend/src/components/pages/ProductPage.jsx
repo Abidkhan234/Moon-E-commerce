@@ -1,15 +1,16 @@
 import { useParams } from "react-router";
 import ProductDetailSection from "../sub-compnents/productSections/ProductDetailSection";
-import { usePost } from "../../hooks/usePost";
 import Loader from "../ui/loader/Loader";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSingleProduct } from "../../api/api";
 
 const ProductPage = () => {
   const { id } = useParams();
 
-  const { isLoading, data } = usePost({ id });
-
-  const price = data?.price;
-  const discountPercentage = data?.discountPercentage;
+  const { data, isLoading } = useQuery({
+    queryKey: ["singleProduct", id],
+    queryFn: () => fetchSingleProduct(id),
+  });
 
   return (
     <main className="flex flex-col gap-8 lg:px-20 md:px-10 px-6 py-4">
@@ -23,14 +24,13 @@ const ProductPage = () => {
       ) : (
         <>
           <ProductDetailSection
-            title={data.title}
-            description={data.description}
-            image={data.images}
-            discountPrice={Math.round(
-              price - (price * discountPercentage) / 100
-            )}
-            price={price}
-            stock={data.availabilityStatus}
+            title={data.singleProduct.title}
+            description={data.singleProduct.description}
+            image={data.singleProduct.image.url}
+            price={data.singleProduct.price}
+            discountPrice={data.singleProduct.discountedPrice}
+            id={data.singleProduct._id}
+            otherItems={data.similarProducts}
           />
         </>
       )}
